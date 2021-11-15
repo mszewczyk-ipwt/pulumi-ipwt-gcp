@@ -1,0 +1,4 @@
+*.pyc
+venv/
+Pulumi.*
+__main__.py
