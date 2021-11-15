@@ -227,12 +227,12 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       from pulumi.dynamic import ReadResult
 
       gcp_request = gcp_session.get(
-        f'https://monitoring.googleapis.com/v3{resource.get("name")}',
+        f'https://monitoring.googleapis.com/v3/{resource.get("name")}',
       )
       if gcp_request.status_code == 200:
         return ReadResult(
           name,
-          json.dumps(gcp_request.text)
+          json.loads(gcp_request.text)
         )
       elif gcp_request.status_code == 404:
         return ReadResult(
@@ -249,7 +249,6 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       import json
 
       alert_policy_object = AlertPolicy.Args(**new_resource)
-      print(json.dumps(alert_policy_object, indent=2))
 
       gcp_request = gcp_session.patch(
         f'https://monitoring.googleapis.com/v3/{old_resource.get("name")}',
@@ -294,11 +293,48 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
   mutationRecord: Output[dict]
   alertStrategy: Output[dict]
 
-  def __init__(self, name, **kwargs):
+  def __init__(self, resource_name, 
+    args: Output[Args] = None,
+    name: Output[str] = None,
+    displayName: Output[str] = None,
+    documentation: Output[dict] = None,
+    userLabels: Output[dict] = None,
+    conditions: Output[list] = None,
+    combiner: Output[str] = None,
+    enabled: Output[bool] = None,
+    validity: Output[dict] = None,
+    notificationChannels: Output[list] = None,
+    creationRecord: Output[dict] = None,
+    mutationRecord: Output[dict] = None,
+    alertStrategy: Output[dict] = None,
+    **kwargs,
+  ):
 
-    opts = kwargs.pop('opts', None)
+    resource_parameters = {
+      **args,
+      **kwargs,
+    } if args is not None else {
+      **dict(
+        name=name,
+        displayName=displayName,
+        documentation=documentation,
+        userLabels=userLabels,
+        conditions=conditions,
+        combiner=combiner,
+        enabled=enabled,
+        validity=validity,
+        notificationChannels=notificationChannels,
+        creationRecord=creationRecord,
+        mutationRecord=mutationRecord,
+        alertStrategy=alertStrategy,
+      ),
+      **kwargs,
+    }
 
-    super(AlertPolicy, self).__init__(self._AlertPolicyProvider(), name,
-      kwargs,
+    opts = resource_parameters.pop('opts', None)
+
+    super(AlertPolicy, self).__init__(self._AlertPolicyProvider(),
+      resource_name,
+      resource_parameters,
       opts=opts
     )

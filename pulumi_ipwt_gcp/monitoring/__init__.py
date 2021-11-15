@@ -1,1 +1,1 @@
-from . import v3
+from pulumi_ipwt_gcp.monitoring import v3

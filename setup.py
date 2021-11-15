@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 VERSION = "0.1"
@@ -11,9 +11,11 @@ setup(
   project_urls={
       'Repository': 'https://github.com/mszewczyk-ipwt/pulumi-ipwt-gcp'
   },
+  packages=find_packages(),
   license='Apache-2.0',
   install_requires=[
-      'pulumi'
+      'pulumi',
+      'google-auth',
   ],
   zip_safe=False
 )

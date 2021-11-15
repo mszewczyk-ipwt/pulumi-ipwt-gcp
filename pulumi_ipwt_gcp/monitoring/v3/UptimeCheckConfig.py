@@ -118,8 +118,8 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
       username=None,
       password=None,
     ):
-      super().add(username=json.get('username', username))
-      super().add(password=json.get('password', password))
+      super().add(username=username)
+      super().add(password=password)
 
   class ContentType(EnumMeta):
     TYPE_UNSPECIFIED='TYPE_UNSPECIFIED'
@@ -261,12 +261,50 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
   tcpCheck: Output[str]
   project: Output[str]
 
-  def __init__(self, name, **kwargs):
-    
-    opts = kwargs.pop('opts', None)
+  def __init__(self, resource_name, 
+    args: Output[Args] = None,
+    name: Output[str] = None,
+    displayName: Output[str] = None,
+    period: Output[str] = None,
+    timeout: Output[str] = None,
+    ContentMatchers: Output[dict] = None,
+    selectedRegions: Output[list] = None,
+    isInternal: Output[bool] = None,
+    internalCheckers: Output[str] = None,
+    monitoredResource: Output[dict] = None,
+    resourceGroup: Output[str] = None,
+    httpCheck: Output[dict] = None,
+    tcpCheck: Output[str] = None,
+    project: Output[str] = None,
+    **kwargs,
+  ):
 
-    # kwargs.update(dict(name=None)) if not kwargs.get('name') else None
+    resource_parameters = {
+      **args,
+      **kwargs,
+    } if args is not None else {
+      **dict(
+        name=name,
+        displayName=displayName,
+        period=period,
+        timeout=timeout,
+        ContentMatchers=ContentMatchers,
+        selectedRegions=selectedRegions,
+        isInternal=isInternal,
+        internalCheckers=internalCheckers,
+        monitoredResource=monitoredResource,
+        resourceGroup=resourceGroup,
+        httpCheck=httpCheck,
+        tcpCheck=tcpCheck,
+        project=project,
+      ),
+      **kwargs,
+    }
 
-    super(UptimeCheckConfig, self).__init__(self._UptimeCheckConfigProvider(), name,
-    kwargs,
-    opts=opts)
+    opts = resource_parameters.pop('opts', None)
+
+    super(UptimeCheckConfig, self).__init__(self._UptimeCheckConfigProvider(),
+      resource_name,
+      resource_parameters,
+      opts=opts
+    )
