@@ -231,8 +231,8 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       )
       if gcp_request.status_code == 200:
         return ReadResult(
-          name,
-          json.loads(gcp_request.text)
+          id_ = name,
+          outs = json.loads(gcp_request.text)
         )
       elif gcp_request.status_code == 404:
         return ReadResult(

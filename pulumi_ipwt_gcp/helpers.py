@@ -12,7 +12,11 @@ def _get_google_session():
   '''
   from google.auth import default
   from google.auth.transport.requests import AuthorizedSession
-  google_credentials, project = default()
+  google_credentials, project = default(
+    scopes=[
+      'https://www.googleapis.com/auth/cloud-platform'
+    ]
+  )
   return AuthorizedSession(google_credentials)
 
 gcp_session = _get_google_session()

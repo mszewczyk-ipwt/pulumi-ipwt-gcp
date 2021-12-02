@@ -2,7 +2,6 @@ from pulumi import Output
 from pulumi.dynamic import Resource
 from pulumi.dynamic import ResourceProvider
 
-# from pulumi_ipwt_gcp import _IpwtGcp
 from pulumi_ipwt_gcp.helpers import _DictExt
 from pulumi_ipwt_gcp.helpers import gcp_session
 
@@ -197,8 +196,8 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
       )
       if gcp_request.status_code == 200:
         return ReadResult(
-          name,
-          json.dumps(gcp_request.text)
+          id_ = name,
+          outs = json.loads(gcp_request.text)
         )
       elif gcp_request.status_code == 404:
         return ReadResult(
