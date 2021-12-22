@@ -8,6 +8,9 @@ from pulumi_ipwt_gcp.helpers import gcp_session
 from enum import EnumMeta
 
 class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeCheckConfig'):
+  '''
+  https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.uptimeCheckConfigs
+  '''
 
   class Args(_DictExt):
     def __init__(self,
@@ -25,18 +28,7 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
       tcpCheck=None,
       **kwargs
     ):
-      super().add(name=name)
-      super().add(displayName=displayName)
-      super().add(period=period)
-      super().add(timeout=timeout)
-      super().add(contentMatchers=contentMatchers)
-      super().add(selectedRegions=selectedRegions)
-      super().add(isInternal=isInternal)
-      super().add(internalCheckers=internalCheckers)
-      super().add(monitoredResource=monitoredResource)
-      super().add(resourceGroup=resourceGroup)
-      super().add(httpCheck=httpCheck)
-      super().add(tcpCheck=tcpCheck)
+      super().update_locals(locals())
 
 
   class UptimeCheckRegion(EnumMeta):
@@ -55,28 +47,21 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
       peerProjectId=None,
       state=None,
     ):
-      super().add(name=name)
-      super().add(displayName=displayName)
-      super().add(network=network)
-      super().add(gcpZone=gcpZone)
-      super().add(peerProjectId=peerProjectId)
-      super().add(state=state)
+      super().update_locals(locals())
 
   class MonitoredResource(_DictExt):
     def __init__(self,
       type=None,
       labels=None
     ):
-      super().add(type=type)
-      super().add(labels=labels)
+      super().update_locals(locals())
 
   class ResourceGroup(_DictExt):
     def __init__(self,
       groupId=None,
       resourceType=None,
     ):
-      super().add(groupId=groupId)
-      super().add(resourceType=resourceType)
+      super().update_locals(locals())
 
   class GroupResourceType(EnumMeta):
     RESOURCE_TYPE_UNSPECIFIED='RESOURCE_TYPE_UNSPECIFIED'
@@ -96,16 +81,7 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
       validateSsl=None,
       body=None,
     ):
-      super().add(requestMethod=requestMethod)
-      super().add(useSsl=useSsl)
-      super().add(path=path)
-      super().add(port=port)
-      super().add(authInfo=authInfo)
-      super().add(maskHeaders=maskHeaders)
-      super().add(headers=headers)
-      super().add(contentType=contentType)
-      super().add(validateSsl=validateSsl)
-      super().add(body=body)
+      super().update_locals(locals())
 
   class RequestMethod(EnumMeta):
     METHOD_UNSPECIFIED='METHOD_UNSPECIFIED'
@@ -117,8 +93,7 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
       username=None,
       password=None,
     ):
-      super().add(username=username)
-      super().add(password=password)
+      super().update_locals(locals())
 
   class ContentType(EnumMeta):
     TYPE_UNSPECIFIED='TYPE_UNSPECIFIED'
@@ -129,17 +104,15 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
       json={},
       port=None,
     ):
-      super().add(port=json.get('port', port))
+      super().update_locals(locals())
 
   class ContentMatcher(_DictExt):
 
-    def __init__(
-      self,
+    def __init__(self,
       content=None,
       matcher=None,
     ):
-      super().add(content=content)
-      super().add(matcher=matcher)
+      super().update_locals(locals())
 
   class ContentMatcherOption(EnumMeta):
     CONTENT_MATCHER_OPTION_UNSPECIFIED='CONTENT_MATCHER_OPTION_UNSPECIFIED'

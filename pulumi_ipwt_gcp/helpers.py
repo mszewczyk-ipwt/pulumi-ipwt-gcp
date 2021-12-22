@@ -5,6 +5,13 @@ class _DictExt(dict):
       if v != None:
         super().update({k:v})
 
+  def update_locals(self, dictionary):
+    dictionary.pop('self')
+    dictionary.pop('__class__')
+    for key in list(dictionary.keys()):
+      if not dictionary[key]: dictionary.pop(key)
+    self.update(dictionary)
+
 def _get_google_session():
   '''
   return session object with a type of requests and with

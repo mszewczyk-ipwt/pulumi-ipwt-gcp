@@ -6,6 +6,9 @@ from pulumi_ipwt_gcp.helpers import _DictExt
 from pulumi_ipwt_gcp.helpers import gcp_session
 
 class ProjectBillingInfo(Resource, module='IPWT-gcp', name='cloudbilling/v1/ProjectBillingInfo'):
+  '''
+  https://cloud.google.com/billing/docs/reference/rest/v1/billingAccounts
+  '''
 
   class Args(_DictExt):
     def __init__(self,
@@ -15,10 +18,7 @@ class ProjectBillingInfo(Resource, module='IPWT-gcp', name='cloudbilling/v1/Proj
       billingEnabled=None,
       **kwargs,
     ):
-      super().add(name=name)
-      super().add(projectId=projectId)
-      super().add(billingAccountName=billingAccountName)
-      super().add(billingEnabled=billingEnabled)
+      super().update_locals(locals())
 
   class _ProjectBillingInfoProvider(ResourceProvider):
 

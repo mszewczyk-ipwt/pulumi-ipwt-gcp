@@ -8,6 +8,9 @@ from pulumi_ipwt_gcp.helpers import gcp_session
 from enum import EnumMeta
 
 class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy'):
+  '''
+  https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.alertPolicies
+  '''
 
   class Args(_DictExt):
     def __init__(self,
@@ -25,25 +28,14 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       alertStrategy=None,
       **kwargs
     ):
-      super().add(name=name)
-      super().add(displayName=displayName)
-      super().add(documentation=documentation)
-      super().add(userLabels=userLabels)
-      super().add(conditions=conditions)
-      super().add(combiner=combiner)
-      super().add(enabled=enabled)
-      super().add(validity=validity)
-      super().add(notificationChannels=notificationChannels)
-      super().add(creationRecord=creationRecord)
-      super().add(mutationRecord=mutationRecord)
-      super().add(alertStrategy=alertStrategy)
+      super().update_locals(locals())
 
   class Documentation(_DictExt):
     def __init__(self,
-      **kwargs,
+      content=None,
+      mimeType=None,
     ):
-      super().add(content=kwargs.get('content', None))
-      super().add(mimeType=kwargs.get('mimeType', None))
+      super().update_locals(locals())
 
   class Condition(_DictExt):
     def __init__(self,
@@ -54,33 +46,28 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       conditionMatchedLog=None,
       conditionMonitoringQueryLanguage=None,
     ):
-      super().add(name=name)
-      super().add(displayName=displayName)
-      super().add(conditionThreshold=conditionThreshold)
-      super().add(conditionAbsent=conditionAbsent)
-      super().add(conditionMatchedLog=conditionMatchedLog)
-      super().add(conditionMonitoringQueryLanguage=conditionMonitoringQueryLanguage)
+      super().update_locals(locals())
 
   class MetricThreshold(_DictExt):
     def __init__(self,
-      **kwargs,
+      filter=None,
+      aggregations=None,
+      denominatorFilter=None,
+      comparison=None,
+      thresholdValue=None,
+      duration=None,
+      trigger=None,
     ):
-      super().add(filter=kwargs.get('filter', None))
-      super().add(aggregations=kwargs.get('aggregations', None))
-      super().add(denominatorFilter=kwargs.get('denominatorFilter', None))
-      super().add(comparison=kwargs.get('comparison', None))
-      super().add(thresholdValue=kwargs.get('thresholdValue', None))
-      super().add(duration=kwargs.get('duration', None))
-      super().add(trigger=kwargs.get('trigger', None))
+      super().update_locals(locals())
 
   class Aggregation(_DictExt):
     def __init__(self,
-      **kwargs,
+      alignmentPeriod=None,
+      perSeriesAligner=None,
+      crossSeriesReducer=None,
+      groupByFields=None,
     ):
-      super().add(alignmentPeriod=kwargs.get('alignmentPeriod', None))
-      super().add(perSeriesAligner=kwargs.get('perSeriesAligner', None))
-      super().add(crossSeriesReducer=kwargs.get('crossSeriesReducer', None))
-      super().add(groupByFields=kwargs.get('groupByFields', None))
+      super().update_locals(locals())
 
   class Aligner(EnumMeta):
     ALIGN_NONE='ALIGN_NONE'
@@ -130,43 +117,43 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
 
   class Trigger(_DictExt):
     def __init__(self,
-      **kwargs,
+      count=None,
+      percent=None,
     ):
-      super().add(count=kwargs.get('count', None))
-      super().add(percent=kwargs.get('percent', None))
+      super().update_locals(locals())
 
   class MetricAbsence(_DictExt):
     def __init__(self,
-      **kwargs
+      filter=None,
+      aggregations=None,
+      duration=None,
+      trigger=None,
     ):
-      super().add(filter=kwargs.get('filter', None))
-      super().add(aggregations=kwargs.get('aggregations', None))
-      super().add(duration=kwargs.get('duration', None))
-      super().add(trigger=kwargs.get('trigger', None))
+      super().update_locals(locals())
 
   class Aggregation(_DictExt):
     def __init__(self,
-      **kwargs
+      alignmentPeriod=None,
+      perSeriesAligner=None,
+      crossSeriesReducer=None,
+      groupByFields=None,
     ):
-      super().add(alignmentPeriod=kwargs.get('alignmentPeriod', None))
-      super().add(perSeriesAligner=kwargs.get('perSeriesAligner', None))
-      super().add(crossSeriesReducer=kwargs.get('crossSeriesReducer', None))
-      super().add(groupByFields=kwargs.get('groupByFields', None))
+      super().update_locals(locals())
 
   class LogMatch(_DictExt):
     def __init__(self,
-      **kwargs
+      filter=None,
+      labelExtractors=None,
     ):
-      super().add(filter=kwargs.get('filter', None))
-      super().add(labelExtractors=kwargs.get('labelExtractors', None))
+      super().update_locals(locals())
 
   class MonitoringQueryLanguageCondition(_DictExt):
     def __init__(self,
-      **kwargs
+      query=None,
+      duration=None,
+      trigger=None,
     ):
-      super().add(query=kwargs.get('query', None))
-      super().add(duration=kwargs.get('duration', None))
-      super().add(trigger=kwargs.get('trigger', None))
+      super().update_locals(locals())
 
   class ConditionCombinerType(EnumMeta):
     COMBINE_UNSPECIFIED='COMBINE_UNSPECIFIED'
@@ -179,14 +166,13 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       notificationRateLimit=None,
       autoClose=None,
     ):
-      super().add(notificationRateLimit=notificationRateLimit)
-      super().add(autoClose=autoClose)
+      super().update_locals(locals())
       
   class NotificationRateLimit(_DictExt):
     def __init__(self,
-      **kwargs
+      period=None,
     ):
-      super().add(period=kwargs.get('period', None))
+      super().update_locals(locals())
 
   class _AlertPolicyProvider(ResourceProvider):
 

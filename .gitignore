@@ -2,3 +2,4 @@
 venv/
 Pulumi.*
 __main__.py
+temp/
