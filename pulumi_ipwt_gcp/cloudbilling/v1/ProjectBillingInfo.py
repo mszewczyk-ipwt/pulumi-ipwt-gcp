@@ -18,6 +18,7 @@ class ProjectBillingInfo(Resource, module='IPWT-gcp', name='cloudbilling/v1/Proj
       billingEnabled=None,
       **kwargs,
     ):
+      kwargs = None
       super().update_locals(locals())
 
   class _ProjectBillingInfoProvider(ResourceProvider):

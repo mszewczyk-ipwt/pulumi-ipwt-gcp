@@ -28,6 +28,7 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       alertStrategy=None,
       **kwargs
     ):
+      kwargs = None
       super().update_locals(locals())
 
   class Documentation(_DictExt):
@@ -182,6 +183,7 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       import json
       from pulumi.dynamic import CreateResult
 
+      print(json.dumps(resource, indent=2))
       alert_policy_object = AlertPolicy.Args(**resource)
 
       gcp_request = gcp_session.post(

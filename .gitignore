@@ -1,5 +1,6 @@
 *.pyc
 venv/
+venv_local/
 Pulumi.*
 __main__.py
 temp/

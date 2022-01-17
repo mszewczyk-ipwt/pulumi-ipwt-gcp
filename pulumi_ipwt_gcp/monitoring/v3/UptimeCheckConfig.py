@@ -28,6 +28,7 @@ class UptimeCheckConfig(Resource, module='IPWT-gcp', name='monitoring/v3/UptimeC
       tcpCheck=None,
       **kwargs
     ):
+      kwargs = None
       super().update_locals(locals())
 
 
