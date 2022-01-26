@@ -3,7 +3,7 @@ from pulumi.dynamic import Resource
 from pulumi.dynamic import ResourceProvider
 
 from pulumi_ipwt_gcp.helpers import _DictExt
-from pulumi_ipwt_gcp.helpers import gcp_session
+from pulumi_ipwt_gcp.helpers import _GcpSession
 
 from enum import EnumMeta
 
@@ -177,16 +177,13 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
 
   class _AlertPolicyProvider(ResourceProvider):
 
-    _gcp_session = None
-
     def create(self, resource):
       import json
       from pulumi.dynamic import CreateResult
 
-      print(json.dumps(resource, indent=2))
       alert_policy_object = AlertPolicy.Args(**resource)
 
-      gcp_request = gcp_session.post(
+      gcp_request = _GcpSession().post(
         f'https://monitoring.googleapis.com/v3/projects/{resource.pop("project")}/alertPolicies',
         headers={
           'content-type': 'application/json'
@@ -214,7 +211,7 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
       import json
       from pulumi.dynamic import ReadResult
 
-      gcp_request = gcp_session.get(
+      gcp_request = _GcpSession().get(
         f'https://monitoring.googleapis.com/v3/{resource.get("name")}',
       )
       if gcp_request.status_code == 200:
@@ -238,7 +235,7 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
 
       alert_policy_object = AlertPolicy.Args(**new_resource)
 
-      gcp_request = gcp_session.patch(
+      gcp_request = _GcpSession().patch(
         f'https://monitoring.googleapis.com/v3/{old_resource.get("name")}',
         headers={
           'content-type': 'application/json'
@@ -259,7 +256,7 @@ class AlertPolicy(Resource, module='IPWT-gcp', name='monitoring/v3/AlertPolicy')
     def delete(self, name, resource):
       import json
       alert_policy_object = AlertPolicy.Args(**resource)
-      gcp_request = gcp_session.delete(
+      gcp_request = _GcpSession().delete(
         f'https://monitoring.googleapis.com/v3/{alert_policy_object.get("name")}',
       )
 

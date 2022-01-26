@@ -3,7 +3,7 @@ from pulumi.dynamic import Resource
 from pulumi.dynamic import ResourceProvider
 
 from pulumi_ipwt_gcp.helpers import _DictExt
-from pulumi_ipwt_gcp.helpers import gcp_session
+from pulumi_ipwt_gcp.helpers import _GcpSession
 
 class ProjectBillingInfo(Resource, module='IPWT-gcp', name='cloudbilling/v1/ProjectBillingInfo'):
   '''
@@ -29,7 +29,7 @@ class ProjectBillingInfo(Resource, module='IPWT-gcp', name='cloudbilling/v1/Proj
 
       project_billing_info = ProjectBillingInfo.Args(**resource)
 
-      gcp_request = gcp_session.put(
+      gcp_request = _GcpSession().put(
         f'https://cloudbilling.googleapis.com/v1/projects/{resource.pop("projectId")}/billingInfo',
         json=project_billing_info,
       )
@@ -51,7 +51,7 @@ class ProjectBillingInfo(Resource, module='IPWT-gcp', name='cloudbilling/v1/Proj
       import json
       from pulumi.dynamic import ReadResult
 
-      gcp_request = gcp_session.get(
+      gcp_request = _GcpSession().get(
         f'https://cloudbilling.googleapis.com/v1/{resource.pop("name")}',
       )
       if gcp_request.status_code == 200:
@@ -76,7 +76,7 @@ class ProjectBillingInfo(Resource, module='IPWT-gcp', name='cloudbilling/v1/Proj
       project_billing_info = ProjectBillingInfo.Args(**new_resource)
       project_billing_info
 
-      gcp_request = gcp_session.put(
+      gcp_request = _GcpSession().put(
         f'https://cloudbilling.googleapis.com/v1/{new_resource.pop("name")}',
         json=project_billing_info
       )
@@ -95,7 +95,7 @@ class ProjectBillingInfo(Resource, module='IPWT-gcp', name='cloudbilling/v1/Proj
       import json
       project_billing_info = ProjectBillingInfo.Args(**resource)
       project_billing_info['billingEnabled'] == False
-      gcp_request = gcp_session.put(
+      gcp_request = _GcpSession().put(
         f'https://cloudbilling.googleapis.com/v1/{project_billing_info.get("name")}',
       )
 
